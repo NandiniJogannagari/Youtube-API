@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Video Player</title>
+  <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+  <!-- Video Players -->
+  <div id="player1"></div>
+  <div id="player2"></div>
+  <div id="player3"></div>
+  <div id="player4"></div>
+  <div id="player5"></div>
+  <div id="player6"></div>
+  <div id="player7"></div>
+  <div id="player8"></div>
+  <div id="player9"></div>
+  <div id="player10"></div>
+
+  <script>
+    // Replace 'YOUR_API_KEY' with your actual YouTube Data API key
+    const apiKey = 'AIzaSyD9hqkg7pUyZPEUar8lAbRC4tMXnF49oE4';
+
+    // Replace 'YOUR_VIDEO_ID_1' through 'YOUR_VIDEO_ID_10' with the unlisted video IDs you want to play
+    const videoIds = [
+      'Vqlp_jer7J4',
+      'GPRVlA6jIHI',
+      'QsoytcbiqQI',
+      'X9JExlvPwcs',
+      'OCV5F88TYnk',
+      'm050iy5_2ng',
+      '49Xn3edL2DY',
+      'OvIzeAiIgWY',
+      'coEaOaAhxTs',
+      'OvIzeAiIgWY'
+    ];
+
+    let players = [];
+
+    function onYouTubeIframeAPIReady() {
+      // Create players for each video
+      for (let i = 0; i < videoIds.length; i++) {
+        const player = createPlayer(`player${i + 1}`, videoIds[i]);
+        players.push(player);
+      }
+    }
+
+    function createPlayer(playerId, videoId) {
+      return new YT.Player(playerId, {
+        height: '360',
+        width: '640',
+        videoId: videoId,
+        playerVars: {
+          'autoplay': 1,
+          'controls': 1,
+          'rel': 0,
+          'showinfo': 0,
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      event.target.playVideo();
+    }
+
+    function onPlayerStateChange(event) {
+      // You can add custom logic here for player state changes
+    }
+  </script>
+
+  <script async defer src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
